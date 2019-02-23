@@ -5,11 +5,11 @@ import math
 from random import *
 pygame.init()
 #win size:
-WX = 2000 #Window X
+WX = 1920 #Window X
 WY = 1000 #Window Y
 #Destination params:
-Xdest = randint(1,WX)
-Ydest = randint(1,WY)
+Xdest = randint(20,WX)
+Ydest = randint(20,WY)
 Dwidth = 20
 Dheight = 20
 
@@ -92,7 +92,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         win.fill((0,0,0))
-        if X1 >= Xdest and X1 <= Xdest + Dwidth and Y1 <= Ydest+Dheight and Y1 >= Ydest:
+        if (X1+width) >= Xdest and (X1+width) <= Xdest + Dwidth and (Y1+height) <= Ydest+Dheight and (Y1+height) >= Ydest:
             #File = open('Vesa','w')
             #for i in range(4):
                 #File.write(str(vesa[i])+'\n')
@@ -109,5 +109,9 @@ def main():
         #Xdest = randint(1,2000)
         #Ydest = randint(1,1080)
         pygame.display.update()
-
-main()
+while True:
+    main()
+    Xdest = randint(1,WX)
+    Ydest = randint(1,WY)
+    X1 = randint(1,WX)
+    Y1 = randint(1,WY)
