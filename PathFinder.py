@@ -111,6 +111,7 @@ def main():
         pygame.display.update()
 while True:
     main()
+    vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]
     Xdest = randint(1,WX)
     Ydest = randint(1,WY)
     X1 = randint(1,WX)
