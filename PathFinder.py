@@ -38,35 +38,41 @@ def AI():
     buf = []
     for i in range(8):
         buf.append(distance*vesa[i])
-    #print(buf)
+    
     decision = sigm(buf)
-    print(decision)
-    #input()
+    
     ind = decision.index(max(decision))
     if ind == 0 and Y1 >= speed:
+        print('UP')
         Y1 = Y1 - speed
     elif ind == 1 and X1 < WX - width:
+        print('RIGHT')
         X1 = X1 + speed
     elif ind == 2 and Y1 < WY - height:
+        print('DOWN')
         Y1 = Y1 + speed
     elif ind == 3 and X1 >= speed:
+        print('LEFT')
         X1 = X1 - speed
     elif ind == 4 and Y1 >= speed and X1 < WX - width:
+        print('UP-RIGHT')
         X1 = X1 + speed
         Y1 = Y1 - speed
     elif ind == 5 and Y1 < WY - height and X1 < WX - width:
+        print('DOWN-RIGHT')
         X1 = X1 + speed
         Y1 = Y1 + speed
     elif ind == 6 and Y1 < WY - height and X1 >= speed:
+        print('DOWN-LEFT')
         X1 = X1 - speed
         Y1 = Y1 + speed
     elif ind == 7 and Y1 >= speed and X1 >= speed :
+        print('UP-LEFT')
         X1 = X1 - speed
         Y1 = Y1 - speed
 
     distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
-    print(distance)
-    print(prevdist)
+    
     if distance > prevdist:
         vesa[ind] = vesa[ind] - (8 / 1000000)*8
     elif distance == prevdist:
@@ -87,16 +93,13 @@ def main():
     win = pygame.display.set_mode((WX,WY))
     pygame.display.set_caption("PathFinder")
     while run:
-        #pygame.time.delay(50)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
         win.fill((0,0,0))
         if (X1+width) >= Xdest and (X1+width) <= Xdest + Dwidth and (Y1+height) <= Ydest+Dheight and (Y1+height) >= Ydest:
-            #File = open('Vesa','w')
-            #for i in range(4):
-                #File.write(str(vesa[i])+'\n')
-            #File.close()
+            
             print("Done!")
             pygame.draw.rect(win, (0,255,0), (Xdest,Ydest,Dwidth,Dheight))#Draw dest    
             pygame.draw.rect(win, (255,125,0),(X1,Y1,width,height))#Draw Player
@@ -106,8 +109,7 @@ def main():
         pygame.draw.rect(win, (255,125,0),(X1,Y1,width,height))#Draw Player
 
         dec = AI()
-        #Xdest = randint(1,2000)
-        #Ydest = randint(1,1080)
+        
         pygame.display.update()
 while True:
     main()
