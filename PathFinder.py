@@ -23,11 +23,11 @@ height = 5
 speed = 5
 distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
 prevdist = distance
-vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003]#will be random later
+vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]#will be random later
 #ACTIVATION FUNC
 def sigm(nums):
     ret = []
-    for i in range(4):
+    for i in range(8):
         ret.append(1.0 / (1.0 + math.exp(-nums[i])))
     return ret
 #AI func   
@@ -36,7 +36,7 @@ def AI():
     prevdist = distance
     global vesa
     buf = []
-    for i in range(4):
+    for i in range(8):
         buf.append(distance*vesa[i])
     #print(buf)
     decision = sigm(buf)
@@ -51,6 +51,19 @@ def AI():
         Y1 = Y1 + speed
     elif ind == 3 and X1 >= speed:
         X1 = X1 - speed
+    elif ind == 4 and Y1 >= speed and X1 < WX - width:
+        X1 = X1 + speed
+        Y1 = Y1 - speed
+    elif ind == 5 and Y1 < WY - height and X1 < WX - width:
+        X1 = X1 + speed
+        Y1 = Y1 + speed
+    elif ind == 6 and Y1 < WY - height and X1 >= speed:
+        X1 = X1 - speed
+        Y1 = Y1 + speed
+    elif ind == 7 and Y1 >= speed and X1 >= speed :
+        X1 = X1 - speed
+        Y1 = Y1 - speed
+
     distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
     print(distance)
     print(prevdist)
