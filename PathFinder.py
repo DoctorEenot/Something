@@ -23,7 +23,9 @@ height = 5
 speed = 5
 distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
 prevdist = distance
-vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]#will be random later
+#vesa = [(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000]
+#vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]#will be random later
+vesa = [0,0,0,0,0,0,0,0]
 #ACTIVATION FUNC
 def sigm(nums):
     ret = []
@@ -72,7 +74,7 @@ def AI():
         Y1 = Y1 - speed
 
     distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
-    
+    print(decision)
     if distance > prevdist:
         vesa[ind] = vesa[ind] - (8 / 1000000)*8
     elif distance == prevdist:
@@ -97,9 +99,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        win.fill((0,0,0))
+        #win.fill((0,0,0))
         if (X1+width) >= Xdest and (X1+width) <= Xdest + Dwidth and (Y1+height) <= Ydest+Dheight and (Y1+height) >= Ydest:
-            
+            win.fill((0,0,0))
             print("Done!")
             pygame.draw.rect(win, (0,255,0), (Xdest,Ydest,Dwidth,Dheight))#Draw dest    
             pygame.draw.rect(win, (255,125,0),(X1,Y1,width,height))#Draw Player
@@ -113,8 +115,9 @@ def main():
         pygame.display.update()
 while True:
     main()
-    vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]
+    #vesa = [0.0000001, 0.000000001, 0.0000002, 0.00000003,0.00000002, 0.0000000002, 0.00000002, 0.000000003]
+    vesa = [0,0,0,0,0,0,0,0]    
     Xdest = randint(1,WX)
     Ydest = randint(1,WY)
-    X1 = randint(1,WX)
-    Y1 = randint(1,WY)
+    #X1 = randint(1,WX)
+    #Y1 = randint(1,WY)
