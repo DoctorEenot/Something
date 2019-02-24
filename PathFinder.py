@@ -21,6 +21,7 @@ Y1 = Y0
 width = 5
 height = 5
 speed = 5
+Point = 0
 distance = float(math.sqrt((Xdest - X1) ** 2 + (Ydest - Y1) ** 2))
 prevdist = distance
 #vesa = [(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000,(random()*2*3.14)/10000000]
@@ -90,7 +91,7 @@ def AI():
 
 def main():
     global X1
-    global Y1
+    global Y1,Point
     run = True
     win = pygame.display.set_mode((WX,WY))
     pygame.display.set_caption("PathFinder")
@@ -103,10 +104,21 @@ def main():
         if (X1+width) >= Xdest and (X1+width) <= Xdest + Dwidth and (Y1+height) <= Ydest+Dheight and (Y1+height) >= Ydest:
             win.fill((0,0,0))
             print("Done!")
+            Point = Point + 1
             pygame.draw.rect(win, (0,255,0), (Xdest,Ydest,Dwidth,Dheight))#Draw dest    
             pygame.draw.rect(win, (255,125,0),(X1,Y1,width,height))#Draw Player
             pygame.display.update()
             return
+        fontObj = pygame.font.Font('freesansbold.ttf', 20)
+        WIN = fontObj.render("Point: "+str(Point), True, (0,0,255), (0,0,0))
+        box = WIN.get_rect()
+        box.center = (WX-100, WY-100)
+        win.blit(WIN, box)
+        textSurfaceObj = fontObj.render(str(distance), True, (0,0,255), (0,0,0))
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (200, WY-100)
+        win.blit(textSurfaceObj, textRectObj)
+        
         pygame.draw.rect(win, (0,255,0), (Xdest,Ydest,Dwidth,Dheight))#Draw dest    
         pygame.draw.rect(win, (255,125,0),(X1,Y1,width,height))#Draw Player
 
