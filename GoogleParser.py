@@ -87,6 +87,34 @@ class GoogleParser():
             pass
         return to_return
     
+    def get_urls(self,request,pages = 0):
+        '''
+        That function allows you get all urls from google
+        request - search request to google
+        pages - how many pages do we parse, if 0 will be parse all pages
+        '''
+
+        prepared_request = self.prepare_request(request)
+
+        urls = []
+
+        counter = 0
+        while True:
+            page = self.get_page(prepared_request,counter*10)#Google returns 10 sites per request
+            purls = self.parse_urls(page)
+
+            if purls == []:
+                break
+
+            for url in purls:
+                urls.append(url)
+                          
+            counter += 1
+            if counter == pages:
+                break
+
+        return urls
+    
     def download_files(self, request, dir = '.\\', pages = 0):
         '''
         That function allows you download all files google find
@@ -122,15 +150,16 @@ class GoogleParser():
                 thread.join()
         return True
 
-#hs = (calc_hash('ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
-                #'%D0%99%D0%A6%D0%A3%D0%9A%D0%95%D0%9D%D0%93%D0%A8%D0%A9%D0%97%D0%A5%D0%AA%D0%A4%D0%AB%D0%92%D0%90%D0%9F%D0%A0%D0%9E%D0%9B%D0%94%D0%96%D0%AD%D0%AF%D0%A7%D0%A1%D0%9C%D0%98%D0%A2%D0%AC%D0%91%D0%AE'))
+
 #hashes.update(hs)
 #print(hashes)
 #input()
+
 if __name__ == '__main__':
     print('Downloading started')
     parser = GoogleParser(False)
     request = input('Request for Google: ')
-    parser.download_files(request,dir = '.\\txts\\')
+    print(parser.get_urls(request))
+    #parser.download_files(request,dir = '.\\txts\\')
     print('Downloading done')
 
